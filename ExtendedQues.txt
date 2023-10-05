@@ -1,0 +1,266 @@
+Q-1)
+class A {
+    int x = 2;
+    void value() { System.out.println("A value: "); }
+    static void display() {
+        System.out.println("A Display");  }
+}
+class B extends A {
+    int x = 5;
+    void value() { System.out.println("B value: " + x);  }
+    static void display() {
+        System.out.println("B Display");  }
+}
+public class Main {
+    public static void main(String[] args) {
+        A a = new B();
+        a.value();
+        a.display();
+    }
+}
+
+a)  Compilation fails
+b)  B value: 5
+     A Display
+c)  A value: 2
+     A Display
+d) B value: 2
+     B Display
+
+------------------------------------------------------------------------
+Q-2)
+class Parent {
+    void method(int a, double b) { 
+        System.out.println("int and double");    }
+    void method(double a, int b) {
+        System.out.println("double and int");   }
+}
+class Child extends Parent {
+    void method(int a, int b) {
+        System.out.println("two int");   }
+    void method(double a, double b) {
+        System.out.println("two double");  }
+}
+public class Main {
+    public static void main(String[] args) {
+        Parent obj1 = new Child();
+        Child obj2 = new Child();
+        obj1.method(7.2, 5);
+        obj2.method(12, 5.4);
+    }
+}
+
+a) double and int
+    int and double
+b) int and double
+    double and int
+c) int and double
+    two double
+d) Commpilation fails
+
+--------------------------------------------------------------------------
+Q-3) 
+class One {
+    One() {
+        System.out.println("1 constructor");
+        display();   }
+    void display() {
+        System.out.println("1 method");   }
+}
+class Two extends One {
+    Two() {
+        System.out.println("2 constructor");  }
+    @Override
+    void display() {
+        System.out.println("2 method");  }
+}
+public class Main {
+    public static void main(String[] args) {
+        One obj = new Two();
+    }
+}
+
+a) 1 constructor
+     1 method
+     2 constructor
+b) 2 constructor
+     1 constructor
+     1 method
+c) 1 constructor
+     2 method
+     2 constructor
+d)  Compilation fails
+
+------------------------------------------------------------------------------
+Q-4)
+class A {
+    private final String s = "Hi";
+    A() {
+        System.out.println("In A");
+        System.out.println(s);
+    }
+}
+class B extends A {
+    public static String s = "Hello";
+    B() {
+        System.out.println("In B");
+        System.out.println(s);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        B b = new B();
+    }
+}
+
+a) Compilation error
+b) In A
+    Hi
+    In B
+    Hello
+c) In A
+    Hi
+    In B
+    Hi
+d) In A
+    Hello
+    In B
+    Hello
+
+----------------------------------------------------------------------------
+Q-5)
+public class Change {
+    public static void main(String[] args) {
+        private String str1 = "HSBC";	//line-1
+        String str2 = str1.concat("Bank India");	//line-2
+        str2 = str2.substring(0, 4).toLowerCase();	//line-3
+        System.out.println(str2);		//line-4
+    }
+}
+
+a) Compilation error at line 1
+b) Compilation error at line 2
+c) Compilation error at line 3
+d) Compilation error at line 4
+
+---------------------------------------------------------------------------------
+Q-6)
+interface Building {
+    static void place(){
+        System.out.println("In Building");  }
+}
+abstract class Office implements Building {
+    public void place() {
+        System.out.println("In Office");   }
+}
+class College extends Office {
+    public void place() {
+        System.out.println("In College");   }
+}
+public class Test {
+    public static void main(String[] args) {
+        Office obj = new College();
+        obj.place();
+    }
+}
+a) Compilation fails
+b) Run-time Exception
+c) In College
+d) In Office 
+e) In Building 
+
+---------------------------------------------------------------------------------
+Q-7)
+class Product {
+    private String name;
+    public Product(String name) {
+        this.name = name;   
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Product) 
+            return true;
+        return false;
+    }
+}
+public class EqualsChallenge {
+    public static void main(String[] args) {
+        Product p1 = new Product("computer");
+        Product p2 = new Product("laptop");
+        System.out.println(p1.equals(p2));
+    }
+}
+
+a) false
+b) true
+c) Compilation error
+d) Run-time Exception
+
+-----------------------------------------------------------------------------------
+Q-8)
+class People implements Comparable<People> {
+    private String name;
+    public People(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+    @Override
+    public int compareTo(People p) {
+        return Integer.compare(this.name.length(), p.name.length());
+    }
+}
+public class PeopleTreeSetExample {
+    public static void main(String[] args) {
+        Set<People> ps = new TreeSet<>();
+        ps.add(new People("Amit"));
+        ps.add(new People("Amar"));
+        ps.add(new People("Astha"));
+        for (People p : ps) {
+            System.out.println(p.getName());
+        }
+    }
+}
+
+a) Amit
+    Amar
+    Astha
+b) Amit 
+    Amar
+c) Amar
+    Astha
+d) Amit
+    Astha
+
+----------------------------------------------------------------------------------
+Q-9)
+class MyThread extends Thread {
+    public void run() {
+        Thread.currentThread().stop();
+        System.out.println("In run");
+    }
+}
+public class ThreadTest {
+    public static void main(String[] args) {
+        MyThread thread = new MyThread();
+        thread.start();
+    }
+}
+
+a) Compilation Fails
+b) Run-time Exception
+c) In run
+d) No output
+
+---------------------------------------------------------------------------------
+Q-10)
+Choose correct lambda functions  
+a) (int x, int y) -> { return x + y; }
+
+b)(int x, int y) -> x, y;
+
+c) int sum(int x, int y) -> x + y;
+
+d)  (x, y) -> x + y ;
+
